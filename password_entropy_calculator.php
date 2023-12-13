@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,27 +9,34 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Ensure full viewport height */
-            margin: 0; /* Remove default body margin */
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            max-width: 18rem;
         }
     </style>
 </head>
 <body>
-<div class="card text-center bg-dark mb-3" style="max-width: 18rem;">
-<div class="card text-center">
-  <div class="card-header">
-  Password Entropy Calculator
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Enter Password</h5>
+    <div class="card text-center bg-dark mb-3">
+        <div class="card text-center">
+            <div class="card-header">
+                Password Entropy Calculator
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Enter Password</h5>
+            </div>
+            <div class="col-auto">
+                <label for="inputPassword2" class="visually-hidden">Password</label>
+                <input type="password" class="text-center-form-control" id="password" placeholder="Password" oninput="calculateEntropy()" aria-describedby="passwordHelpBlock">
+            </div> 
+            <p id="entropy-display">Password Entropy: <span id="entropy-value">0</span></p>
+        </div>
     </div>
-    <div class="col-auto">
-    <label for="inputPassword2" class="visually-hidden">Password</label>
-    <input type="password" class="text-center-form-control" id="password" placeholder="Password"oninput="calculateEntropy()"aria-describedby="passwordHelpBlock">
-  </div> 
-  <p id="entropy-display">Password Entropy: <span id="entropy-value">0</span></p>
-<script>
-  function calculateEntropy() {
+
+    <script>
+        function calculateEntropy() {
             var password = document.getElementById("password").value;
             var charsetSize = getCharsetSize(password);
             var entropy = password.length * Math.log2(charsetSize);
