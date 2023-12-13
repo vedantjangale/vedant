@@ -1,22 +1,3 @@
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $password = $_POST['password'];
-
-    if (!empty($password)) {
-        $charsetSize = 72; // Size of character set (lowercase + uppercase + digits + special characters)
-        $passwordLength = strlen($password);
-
-        // Calculate entropy using the formula: log2(charsetSize) * passwordLength
-        $entropy = log($charsetSize, 2) * $passwordLength;
-
-        echo "Password Entropy: " . number_format($entropy, 2);
-    } else {
-        echo "Please enter a password.";
-    }
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,25 +26,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <div class="col-auto">
     <label for="inputPassword2" class="visually-hidden">Password</label>
-    <input type="password" class="text-center-form-control" id="password" placeholder="Password" oninput="calculateEntropy()"aria-describedby="passwordHelpBlock">
+    <input type="password" class="text-center-form-control" id="password" placeholder="Password"oninput="calculateEntropy()"aria-describedby="passwordHelpBlock">
   </div> 
-    
-    <p id="entropy-display">Password Entropy: <span id="entropy-value">0</span></p>
-
-    <script>
-        function calculateEntropy() {
+  <p id="entropy-display">Password Entropy: <span id="entropy-value">0</span></p>
+<script>
+  function calculateEntropy() {
             var password = document.getElementById("password").value;
-            var charsetSize = 72; // Size of character set (lowercase + uppercase + digits + special characters)
-            var passwordLength = password.length;
-
-            // Calculate entropy using the formula: log2(charsetSize) * passwordLength
-            var entropy = Math.log2(charsetSize) * passwordLength;
-
+            var charsetSize = getCharsetSize(password);
+            var entropy = password.length * Math.log2(charsetSize);
             document.getElementById("entropy-value").textContent = entropy.toFixed(2);
         }
+
+        function getCharsetSize(password) {
+            var charset = 0;
+            if (/[a-z]/.test(password)) {
+                charset += 26; // lowercase letters
+            }
+            if (/[A-Z]/.test(password)) {
+                charset += 50; // uppercase letters
+            }
+            if (/[0-9]/.test(password)) {
+                charset += 10; // numbers
+            }
+            if (/[!-\/:-@\[-`\{-~]/.test(password)) {
+                charset += 32; // special characters
+            }
+
+            return charset > 0 ? charset : 1; // avoid division by zero
+        }
     </script>
-
-
 </body>
 </html>
-
