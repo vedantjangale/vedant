@@ -38,7 +38,7 @@
 
     <script>
         function calculateEntropy() {
-            var password = document.getElementById("password").valpue;
+            var password = document.getElementById("password").value;
             var charsetSize = getCharsetSize(password);
             var entropy = password.length * Math.log2(charsetSize);
             document.getElementById("entropy-value").textContent = entropy.toFixed(2);
@@ -64,4 +64,3 @@
     </script>
 </body>
 </html>
-
