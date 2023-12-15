@@ -1,3 +1,4 @@
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +21,7 @@
 </head>
 <body>
     <div class="card text-center bg-dark mb-3">
-        <div class="card text-center">
+        <div class="card text-center card text-bg-dark">
             <div class="card-header">
                 Password Entropy Calculator
             </div>
@@ -37,7 +38,7 @@
 
     <script>
         function calculateEntropy() {
-            var password = document.getElementById("password").value;
+            var password = document.getElementById("password").valpue;
             var charsetSize = getCharsetSize(password);
             var entropy = password.length * Math.log2(charsetSize);
             document.getElementById("entropy-value").textContent = entropy.toFixed(2);
@@ -49,7 +50,7 @@
                 charset += 26; // lowercase letters
             }
             if (/[A-Z]/.test(password)) {
-                charset += 50; // uppercase letters
+                charset += 26; // uppercase letters
             }
             if (/[0-9]/.test(password)) {
                 charset += 10; // numbers
@@ -63,3 +64,4 @@
     </script>
 </body>
 </html>
+
